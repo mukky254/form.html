@@ -117,6 +117,42 @@
             height: auto;
         }
 
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+            padding-top: 100px;
+            text-align: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 60%;
+            max-width: 400px;
+        }
+
+        button#okButton {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button#okButton:hover {
+            background-color: #218838;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .form-container {
@@ -132,7 +168,6 @@
                 padding: 15px;
             }
         }
-
     </style>
 </head>
 <body>
@@ -194,6 +229,14 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <p>Booking with us will officially start on May 10th.</p>
+            <button id="okButton">OK</button>
+        </div>
+    </div>
+
     <script>
         // Switch between mobile and email fields based on user selection
         document.getElementById('contact-method').addEventListener('change', function () {
@@ -214,244 +257,166 @@
             serviceSpecificOptions.innerHTML = ''; // Reset options
             serviceSpecificOptions.classList.remove('show');
 
-            if (service === 'hotel') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="hotel-country">Select County for Hotel:</label>
-                        <select id="hotel-country" name="hotel-country" required>
-                            <option value="">--Select County--</option>
-                            <option value="kenya">Mombasa</option>
-                            <option value="">Kwale</option>
-                            <option value="">Kilifi</option>
-                            <option value="">Tana River</option>
-                            <option value="">Lamu</option>
-                            <option value="">Taita Taveta</option>
-                            <option value="">Garissa</option>
-                            <option value="">Wajir</option>
-                            <option value="">Mandera</option>
-                            <option value="">Marsabit</option>
-                            <option value="">Isiolo</option>
-                            <option value="">Meru</option>
-                            <option value="">Tharaka-Nithi</option>
-                            <option value="">Embu</option>
-                            <option value="">Kitui</option>
-                            <option value="">Machakos</option>
-                            <option value="">Makueni</option>
-                            <option value="">Nyandarua</option>
-                            <option value="">Nyeri</option>
-                            <option value="">Kirinyaga</option>
-                            <option value="">Murang'a</option>
-                            <option value="">Kiambu</option>
-                            <option value="">Turkana</option>
-                            <option value="">West Pokot</option>
-                            <option value="">Samburu</option>
-                            <option value="">Trans Nzoia</option>
-                            <option value="">Uasin Gishu</option>
-                            <option value="">Elgeyo Marakwet</option>
-                            <option value="">Nandi</option>
-                            <option value="">Baringo</option>
-                            <option value="">Laikipia</option> 
-                            <option value="">Nakuru</option>
-                            <option value="">Narok</option>
-                            <option value="">Kajiado</option>
-                            <option value="">Kericho</option>
-                            <option value="">Bomet</option>
-                            <option value="">Kakamega</option>
-                            <option value="">Vihiga</option>
-                            <option value="">Bungoma</option>
-                            <option value="">Busia</option>
-                            <option value="">Siaya</option>
-                            <option value="">Kisumu</option>
-                            <option value="">Homa Bay</option>
-                            <option value="">Migori</option>
-                            <option value="">Kisii</option>
-                            <option value="">Nyamira</option>
-                            <option value="">Nairobi</option>
-                        </select>
-                    </div>`;
-            } else if (service === 'bus') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="bus-from">From:</label>
-                        <input type="text" id="bus-from" name="bus-from" required>
-                        <label for="bus-to">To:</label>
-                        <input type="text" id="bus-to" name="bus-to" required>
-                    </div>`;
-            } else if (service === 'flight') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="flight-from">From:</label>
-                        <input type="text" id="flight-from" name="flight-from" required>
-                        <label for="flight-to">To:</label>
-                        <input type="text" id="flight-to" name="flight-to" required>
-                    </div>`;
-            } else if (service === 'artist') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="artist-name">Enter Artist Name:</label>
-                        <input type="text" id="artist-name" name="artist-name" required>
-                    </div>`;
-            } else if (service === 'car_rental') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="car-county">Select County for Car Rental:</label>
-                        <select id="car-county" name="car-county" required>
-                            <option value="">--Select County--</option>
-                            <option value="kenya">Mombasa</option>
-                            <option value="">Kwale</option>
-                            <option value="">Kilifi</option>
-                            <option value="">Tana River</option>
-                            <option value="">Lamu</option>
-                            <option value="">Taita Taveta</option>
-                            <option value="">Garissa</option>
-                            <option value="">Wajir</option>
-                            <option value="">Mandera</option>
-                            <option value="">Marsabit</option>
-                            <option value="">Isiolo</option>
-                            <option value="">Meru</option>
-                            <option value="">Tharaka-Nithi</option>
-                            <option value="">Embu</option>
-                            <option value="">Kitui</option>
-                            <option value="">Machakos</option>
-                            <option value="">Makueni</option>
-                            <option value="">Nyandarua</option>
-                            <option value="">Nyeri</option>
-                            <option value="">Kirinyaga</option>
-                            <option value="">Murang'a</option>
-                            <option value="">Kiambu</option>
-                            <option value="">Turkana</option>
-                            <option value="">West Pokot</option>
-                            <option value="">Samburu</option>
-                            <option value="">Trans Nzoia</option>
-                            <option value="">Uasin Gishu</option>
-                            <option value="">Elgeyo Marakwet</option>
-                            <option value="">Nandi</option>
-                            <option value="">Baringo</option>
-                            <option value="">Laikipia</option>
-                            <option value="">Nakuru</option>
-                            <option value="">Narok</option>
-                            <option value="">Kajiado</option>
-                            <option value="">Kericho</option>
-                            <option value="">Bomet</option>
-                            <option value="">Kakamega</option>
-                            <option value="">Vihiga</option>
-                            <option value="">Bungoma</option>
-                            <option value="">Busia</option>
-                            <option value="">Siaya</option>
-                            <option value="">Kisumu</option>
-                            <option value="">Homa Bay</option>
-                            <option value="">Migori</option>
-                            <option value="">Kisii</option>
-                            <option value="">Nyamira</option>
-                            <option value="">Nairobi</option>
-                        </select>
-                    </div>`;
-            } else if (service === 'hospital') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="hospital-name">Select Hospital:</label>
-                        <select id="hospital-name" name="hospital-name" required>
-                            <option value="">--Select Hospital--</option>
-                            <option value="hospital1">Public Hospital</option>
-                            <option value="hospital2">Private Hospital</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="appointment-date">Select Appointment Date:</label>
-                        <input type="date" id="appointment-date" name="appointment-date" required>
-                    </div>`;
-            } else if (service === 'tourist') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="tourist-site">Select Tourist Attraction Site:</label>
-                        <select id="tourist-site" name="tourist-site" required>
-                            <option value="">--Select Site--</option>
-                            <option value="site1">Game Parks</option>
-                            <option value="site2">Game Reserves</option>
-                            <option value="site3">Beautiful Sceneries</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="tour-guide">Do you need a tour guide?</label>
-                        <select id="tour-guide" name="tour-guide" required>
-                            <option value="">--Select--</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>`;
-            } else if (service === 'other') {
-                serviceSpecificOptions.innerHTML = 
-                    `<div class="form-group">
-                        <label for="other-service">Please specify the service:</label>
-                        <input type="text" id="other-service" name="other-service" required>
-                    </div>`;
+            // Add service-specific options
+            switch (service) {
+                case 'hotel':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="hotel-room-type">Room Type:</label>
+                            <select id="hotel-room-type" name="hotel-room-type">
+                                <option value="single">Single</option>
+                                <option value="double">Double</option>
+                                <option value="suite">Suite</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="hotel-check-in">Check-in Date:</label>
+                            <input type="date" id="hotel-check-in" name="hotel-check-in">
+                        </div>
+                        <div class="form-group">
+                            <label for="hotel-check-out">Check-out Date:</label>
+                            <input type="date" id="hotel-check-out" name="hotel-check-out">
+                        </div>
+                    `;
+                    break;
+                case 'bus':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="bus-route">Select Route:</label>
+                            <select id="bus-route" name="bus-route">
+                                <option value="route1">Kenyas Routes</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'flight':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="flight-class">Flight Class:</label>
+                            <select id="flight-class" name="flight-class">
+                                <option value="economy">Economy</option>
+                                <option value="business">Business</option>
+                                <option value="first">First Class</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="flight-date">Flight Date:</label>
+                            <input type="date" id="flight-date" name="flight-date">
+                        </div>
+                    `;
+                    break;
+                case 'car_rental':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="car-model">Select Car Model:</label>
+                            <select id="car-model" name="car-model">
+                                <option value="sedan">Sedan</option>
+                                <option value="suv">SUV</option>
+                                <option value="truck">Truck</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="car-rental-date">Rental Date:</label>
+                            <input type="date" id="car-rental-date" name="car-rental-date">
+                        </div>
+                    `;
+                    break;
+                case 'train':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="train-route">Select Train Route:</label>
+                            <select id="train-route" name="train-route">
+                                <option value="route1">Madaraka Express routes</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'artist':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="artist-type">Artist Type:</label>
+                            <select id="artist-type" name="artist-type">
+                                <option value="musician">Musician</option>
+                                <option value="painter">Painter</option>
+                                <option value="actor">Actor</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'event':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="event-type">Event Type:</label>
+                            <select id="event-type" name="event-type">
+                                <option value="wedding">Wedding</option>
+                                <option value="conference">Conference</option>
+                                <option value="party">Party</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'housing':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="housing-type">Housing Type:</label>
+                            <select id="housing-type" name="housing-type">
+                                <option value="apartment">Apartment</option>
+                                <option value="house">House</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'hospital':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="hospital-department">Department:</label>
+                            <select id="hospital-department" name="hospital-department">
+                                <option value="general">Public</option>
+                                <option value="specialized">Private</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'tourist':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="tourist-location">Location:</label>
+                            <select id="tourist-location" name="tourist-location">
+                                <option value="location1">Gameparks</option>
+                                <option value="location1">Game reserves</option>
+                                <option value="location2">Beautiful sceneries</option>
+                            </select>
+                        </div>
+                    `;
+                    break;
+                case 'other':
+                    serviceSpecificOptions.innerHTML = `
+                        <div class="form-group">
+                            <label for="other-details">Details:</label>
+                            <textarea id="other-details" name="other-details" rows="4" placeholder="Describe your request..."></textarea>
+                        </div>
+                    `;
+                    break;
             }
 
-            // Show service-specific options
+            // Show service-specific options if any
             if (serviceSpecificOptions.innerHTML) {
                 serviceSpecificOptions.classList.add('show');
             }
         });
 
+        // Handle form submission (no server request, just show modal)
+        document.getElementById('bookingForm').addEventListener('submit', function (event) {
+            event.preventDefault();
 
-        // Handle form submission
-document.getElementById('bookingForm').addEventListener('submit', function (event) {
-    event.preventDefault();
+            // Show the modal after submission
+            document.getElementById('confirmationModal').style.display = 'block';
+        });
 
-    const formData = new FormData(this);
-    const contactMethod = formData.get('contact-method');
-    const contactInfo = contactMethod === 'mobile' ? formData.get('mobile') : formData.get('email');
-    
-    const bookingData = {
-        name: formData.get('name'),
-        contact: contactInfo,
-        service: formData.get('service'),
-        details: getServiceSpecificDetails(formData)
-    };
-
-    // Send the request to the server
-    fetch('https://company-qouh.onrender.com/submit-booking', {  // Corrected the URL to match backend route
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(bookingData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Booking submitted successfully!');
-        window.location.href = 'https://mukky254.github.io/ours/'; 
-    })
-    .catch(error => {
-        alert('Error submitting booking.');
-        console.error(error);
-    });
-});
-
-// Extract the service-specific details based on the selected service
-function getServiceSpecificDetails(formData) {
-    const service = formData.get('service');
-    switch (service) {
-        case 'hotel':
-            return formData.get('hotel-country');
-        case 'bus':
-            return `From: ${formData.get('bus-from')}, To: ${formData.get('bus-to')}`;
-        case 'flight':
-            return `From: ${formData.get('flight-from')}, To: ${formData.get('flight-to')}`;
-        case 'artist':
-            return formData.get('artist-name');
-        case 'car_rental':
-            return formData.get('car-county');
-        case 'hospital':
-            return `Hospital: ${formData.get('hospital-name')}, Appointment Date: ${formData.get('appointment-date')}`;
-        case 'tourist':
-            return `Tourist Site: ${formData.get('tourist-site')}, Tour Guide: ${formData.get('tour-guide')}`;
-        case 'other':
-            return formData.get('other-service');
-        default:
-            return ''; 
-    }
-}
+        // When the OK button in the modal is clicked, redirect to the provided URL
+        document.getElementById('okButton').addEventListener('click', function () {
+            window.location.href = 'https://bookingcentre.site/';  // Replace with your desired URL
+        });
     </script>
 </body>
 </html>
